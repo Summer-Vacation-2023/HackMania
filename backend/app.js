@@ -20,7 +20,6 @@ const globalErrorHandler = require('./controllers/error');
 
 const user = require('./routes/user');
 const post = require('./routes/post');
-const story = require('./routes/story');
 
 const app = express();
 
@@ -87,8 +86,6 @@ app.use('/api/v1/users', user);
 // 2. Posts routes
 app.use('/api/v1/posts', post);
 
-// 3. Story route
-app.use('/api/v1/stories', story);
 
 // 3. Unhandled routes
 app.all('*', (req, res, next) => {

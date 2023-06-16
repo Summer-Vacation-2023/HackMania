@@ -30,7 +30,7 @@ router.route('/:id').delete(deletePost);
 
 router.use(restrictTo('owner', 'admin'));
 
-router.route('/setStatus/:id').udpate(setStatus)
+router.route('/setStatus/:id').patch(setStatus)
 router.route('/deleteByAdmin').delete(deleteByAdmin);
 
 module.exports = router;

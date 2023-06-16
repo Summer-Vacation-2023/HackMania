@@ -136,4 +136,4 @@ schema.pre(/^find/, function (next) {
 // });
 
 const User = mongoose.model('User', schema);
-module.export = User;
+module.exports = User;
