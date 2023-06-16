@@ -38,7 +38,7 @@ exports.register = catchAsync(async (req, res, next) => {
   const url = `${req.protocol}://${req.get("host")}/api/v1/users/me`;
   // await new Email(user, url).sendWelcome();
 
-  sendToken(user, 201, res);
+  return sendToken(user, 201, res);
 });
 
 exports.login = catchAsync(async (req, res, next) => {
