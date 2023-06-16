@@ -23,7 +23,7 @@ const {
 
 const router = express.Router();
 
-
+router.route('/register').post(register);
 router.route('/isLoggedIn').get(isLoggedIn)
 router.route('/login').post(login);
 router.route('/logout').get(logout);
@@ -42,6 +42,5 @@ router.route('/updateMe').patch(uploadUserPhoto, resizePhoto, updateMe);
 router.route('/deleteMe').delete(deleteMe);
 
 router.use(restrictTo('owner', 'admin'))
-router.route('/register').post(register);
 
 module.exports = router;

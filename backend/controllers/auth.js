@@ -51,6 +51,7 @@ exports.login = catchAsync(async (req, res, next) => {
     .populate("posts")
     .populate("likes")
     .select("+password");
+    console.log(password, user.password);
   if (!user || !(await user.correctPassword(password, user.password))) {
     return next(new AppError("Incorrect email or password entered", 401));
   }
