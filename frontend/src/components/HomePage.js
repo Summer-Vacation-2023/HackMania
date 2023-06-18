@@ -3,6 +3,8 @@ import axios from "axios";
 import { UserContext } from "../contexts/UserContext";
 import Register from "./Register";
 import Header from './Header';
+import IssueList from "./IssueList";
+import CreateIssue from "./CreateIssue";
 import { PostContext } from "../contexts/PostContext";
 import { BACKEND_URI } from "../config";
 
@@ -11,6 +13,15 @@ const HomePage = () => {
   const [d, toggleD] = useState(false);
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   useEffect(
     () =>
@@ -60,14 +71,20 @@ const HomePage = () => {
                   <Header />
                 </div>
               )}
-            <div className="container mx-auto p-8">
-              <h1 className="text-3xl font-semibold mb-4">Welcome to the Government Forum</h1>
+            <div className="container m-auto p-8">
+              <h1 className="text-3xl font-semibold mt-10 mb-8">Welcome to the Government Forum</h1>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                
+                <IssueList/>
               </div>
-              <button className="bg-blue-500 text-white py-2 px-4 mt-8 rounded-lg shadow-md hover:bg-blue-600">
-                Create New Issue
-              </button>
+              {user && 
+                <button 
+                  className="bg-blue-500 text-white py-2 px-4 mt-8 rounded-lg shadow-md hover:bg-blue-600"
+                  onClick={openModal}
+                  >
+                  Create New Issue
+                </button>
+              }
+              {isModalOpen && <CreateIssue onClose={closeModal} />}
             </div>
           </>
           </UserContext.Provider>
