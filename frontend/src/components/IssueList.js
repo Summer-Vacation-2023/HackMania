@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { PostContext } from "../contexts/PostContext";
+import Issue from "./Issue";
 
 const IssueList = () => {
   const { posts, loading } = useContext(PostContext);
@@ -18,14 +19,15 @@ const IssueList = () => {
       <div className="container mx-auto p-8">
         <h1 className="text-3xl font-semibold mb-4">Issue List</h1>
         {posts.map((issue) => (
-          <div key={issue.id} className="bg-white rounded-lg shadow-md p-6 mb-4">
-            <h2 className="text-xl font-semibold mb-2">{issue.title}</h2>
-            <p className="text-gray-500 mb-2">Posted by: {issue.resident}</p>
-            <p className="text-gray-500 mb-2">Upvotes: {issue.upvotes}</p>
-            <button className="bg-blue-500 text-white py-2 px-4 rounded-lg shadow-md hover:bg-blue-600">
-              View Details
-            </button>
-          </div>
+          <Issue 
+          key={issue.id}
+            id={issue.id}
+            author={issue.author.name}
+            authorimg={issue.author.photo}
+            authorid={issue.author.id}
+            caption={issue.caption}
+            upvotes={issue.likeCount}
+          />
         ))}
       </div>
     )}

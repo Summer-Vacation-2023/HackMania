@@ -1,12 +1,11 @@
 import React, { useState, useRef, useContext } from "react";
-import { PhotographIcon, XIcon } from "@heroicons/react/outline";
 import axios from "axios";
 import { UserContext } from "../contexts/UserContext";
 import { PostContext } from "../contexts/PostContext";
 
 import { BACKEND_URI } from "../config";
 
-const CreateIssue = (onClose) => {
+const CreateIssue = ({onClose}) => {
   const { user } = useContext(UserContext);
   const comment = useRef();
   const [selectedPhoto, setSelectedPhoto] = useState(null);
@@ -59,8 +58,7 @@ const CreateIssue = (onClose) => {
 
   return (
     <div className="modal">
-      <div className="flex items-start space-x-4 p-4 bg-white rounded-lg shadow-2xl my-4 dark:bg-slate-800">
-        <div className="flex items-start space-x-4 p-4 bg-white rounded-lg shadow-2xl my-4 dark:bg-slate-800">
+      <div className="flex items-start space-x-4 p-4 bg-white rounded-lg shadow-2xl my-4">
         <div className="w-12 h-12 rounded-full bg-gray-200">
             <img
             className="rounded-full"
@@ -70,12 +68,12 @@ const CreateIssue = (onClose) => {
         </div>
         <div className="flex-1">
             <textarea
-            className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500 resize-none overflow-y-hidden dark:bg-slate-800 dark:text-gray-100"
+            className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500 resize-none overflow-y-hidden"
             style={{ wordWrap: "break-word" }}
             placeholder="Write a comment..."
             ref={comment}
             ></textarea>
-            {selectedPhoto && (
+            {/* {selectedPhoto && (
             <div className="relative mt-2">
                 <img
                 className="max-h-64 object-contain rounded-lg"
@@ -89,9 +87,9 @@ const CreateIssue = (onClose) => {
                 <XIcon className="w-5 h-5" />
                 </button>
             </div>
-            )}
+            )} */}
             <div className="flex justify-end mt-2 gap-2">
-            <label className="px-2 py-2 text-white bg-blue-500 rounded-full hover:bg-blue-600">
+            {/* <label className="px-2 py-2 text-white bg-blue-500 rounded-full hover:bg-blue-600">
                 <PhotographIcon className="w-6 h-6" />
                 <input
                 type="file"
@@ -99,7 +97,13 @@ const CreateIssue = (onClose) => {
                 accept="image/*"
                 onChange={handleChoosePhoto}
                 />
-            </label>
+            </label> */}
+            <button 
+                className="px-4 py-2 text-white bg-red-500 rounded-xl hover:bg-red-600"
+                onClick={onClose}
+            >
+                Close
+            </button>
             <button
                 className="px-4 py-2 text-white bg-green-500 rounded-xl hover:bg-green-600"
                 onClick={handlePost}
@@ -108,14 +112,12 @@ const CreateIssue = (onClose) => {
                 {loading ? (
                 <div className="h-4 w-4 rounded-full border-t-2 border-white border-opacity-50 animate-spin mr-2"></div>
                 ) : (
-                "Post"
+                "Post Issue"
                 )}
             </button>
             </div>
         </div>
         </div>
-        </div>
-      <button onClick={onClose}>Close Modal</button>
     </div>
   );
 };

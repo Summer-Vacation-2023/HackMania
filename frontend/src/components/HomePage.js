@@ -16,6 +16,7 @@ const HomePage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
+    console.log("Modal Open");
     setIsModalOpen(true);
   };
 
@@ -26,16 +27,6 @@ const HomePage = () => {
   useEffect(
     () =>
       async function () {
-        if (
-          localStorage.theme === "light" ||
-          (!("theme" in localStorage) &&
-            window.matchMedia("(prefers-color-scheme: dark)").matches)
-        ) {
-          document.documentElement.classList.add("light");
-        } else {
-          document.documentElement.classList.remove("light");
-        }
-
         try {
           const res = axios.get(`${BACKEND_URI}/api/v1/posts`, {
             withCredentials: true,
@@ -53,7 +44,7 @@ const HomePage = () => {
           setLoading(false);
           setUser(dataUser.data.data);
         } catch (err) {
-          console.log(err.response);
+          // console.log(err.response);
           setLoading(false);
         }
       },
@@ -73,7 +64,7 @@ const HomePage = () => {
               )}
             <div className="container m-auto p-8">
               <h1 className="text-3xl font-semibold mt-10 mb-8">Welcome to the Government Forum</h1>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="md:grid-cols-2 gap-6">
                 <IssueList/>
               </div>
               {user && 
