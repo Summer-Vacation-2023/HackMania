@@ -7,8 +7,24 @@ import { PostContext } from "../contexts/PostContext";
 
 function Issue(props) {
   const [isLiked, setLiked] = useState(false);
+  const [isComplete, setComplete] = useState(false);
   const { user } = useContext(UserContext);
   const { posts, setPosts } = useContext(PostContext);
+
+  const handleComplete=()=>{
+    axios
+      .patch(
+        `${BACKEND_URI}/api/v1/posts/setStatus/${props.id}`,
+        {"status":"Completed"},
+        {withCredentials: true}
+    )
+    .then((response)=>{
+      setComplete(()=> !isComplete);
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+  }
   
   const handleLike = () => {
     axios
@@ -35,6 +51,14 @@ function Issue(props) {
       <h2 className="text-xl font-semibold mb-2">{props.caption}</h2>
       <p className="text-gray-500 mb-2">Posted by: {props.author}</p>
       <p className="text-gray-500 mb-2">Upvotes: {props.upvotes}</p>
+      {user && user.name === "Govt User" ?(
+      <button 
+        className="bg-green-500 text-white py-2 px-4 rounded-lg shadow-md mr-3"
+        onClick={()=>setComplete(true)}
+      >
+        {isComplete?"Completed":"Mark as Complete"}
+      </button>
+      ):<></>}
       <button
         className="bg-blue-500 text-white text-xs py-2 px-4 rounded-lg shadow-md hover:bg-blue-600"
         onClick={handleLike}
